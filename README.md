@@ -1,5 +1,5 @@
 # pax-ai-iris
-# Hybrid Framework for Anomaly Detection Using InterSystems IRIS and Embedded Python
+# Hybrid Framework for Anomaly Detection - IRIS, Embedded Python, AI algorithms 
 
 ## InterSystems IRIS Version
 IRIS for Windows (x86-64) 2024.1.3 (Build 456U)  Thu Jan 9 2025 12:47:03 EST  
