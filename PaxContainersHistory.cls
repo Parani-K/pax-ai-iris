@@ -1,7 +1,7 @@
 Class SQLClass.PaxContainersHistory Extends (%Persistent, %Populate)
 {
 
-Property MoveTimestamp As %Library.TimeStamp(MAXVAL = "2025-04-30 23:59:59", MINVAL = "2021-01-01 00:00:00");
+Property MoveTimestamp As %Library.TimeStamp(MAXVAL = "2025-03-31 23:59:59", MINVAL = "2021-01-01 00:00:00");
 
 Property LocationCode As %String(MAXLEN = 3);
 
@@ -11,7 +11,7 @@ Property ContainerType As %String(MAXLEN = 100);
 
 Property ContainerGateType As %Boolean;
 
-Property Units As %Integer(MAXVAL = 90000, MINVAL = 50000);
+Property Units As %Integer(MAXVAL = 9000, MINVAL = 1000);
 
 Property YearWeekNo As %String [ Calculated, SqlComputeCode = {Set {*}=##class(SQLClass.PaxUtil).convertWeekYear({MoveTimestamp})}, SqlComputed ];
 
@@ -34,23 +34,21 @@ ClassMethod anomalyDetection(inpDate As %String, debug As %Integer = 1)
             
             &sql(SELECT SUM(Units) into :Units from SQLClass.PaxContainersHistory WHERE LocationCode=:State and ContainerGateType=:CgiCgo and  YearWeekNo=:YearWeekNo)
             Set:SQLCODE Units=0       
-            
+            // w +Units,!
             Set sqlQry = "SELECT SUM(Units) as value,YearWeekNo As yearweekno from SQLClass.PaxContainersHistory WHERE LocationCode='"_State_"' and ContainerGateType="_CgiCgo_" group by YearWeekNo"
             Continue:'##class(SQLClass.PaxUtil).pyFindAnomaly(sqlQry,State,Units,CgiCgo,YearWeekNo,"KNN")
+            // w sqlQry,!
             Continue:'##class(SQLClass.PaxUtil).pyFindAnomaly(sqlQry,State,Units,CgiCgo,YearWeekNo,"IFOREST")
             Set sqlQry = "SELECT SUM(Units) as value from SQLClass.PaxContainersHistory WHERE LocationCode='"_State_"' and ContainerGateType="_CgiCgo_" group by YearWeekNo"
             Continue:'##class(SQLClass.PaxUtil).pyFindAnomaly(sqlQry,State,Units,CgiCgo,YearWeekNo,"LOF")
 
-            Do ##Class(SQLClass.PaxUtil).getPastMoveData(State,CgiCgo,YearWeekNo, .resPast) 
-            
             Write:debug $J(CgiCgo(CgiCgo)_" at "_State(State)_"("_State_")  Units : ",100)_+Units,! 
-            If debug 
-            {
-                Do ##Class(SQLClass.PaxUtil).getPastTransData(State,CgiCgo,YearWeekNo,.resPast) 
-                Write $J("This year's avg   : ",100)_resPast("avgYear"),!
-                Write $J("Last 4 week's Avg : ",100)_resPast("last4Week"),!
-                Write $J("Last Week   : ",100)_resPast("lastWeek"),!
-                Write $J("Last Year's Same week   : ",100)_resPast("lastYear"),!
+            If debug {
+                Do ##Class(SQLClass.PaxUtil).getPastMoveData(State,CgiCgo,YearWeekNo, .resPast) 
+               Write $J("This year's avg   : ",100)_resPast("avgYear"),!
+                Write $J("Previous 4 week's Avg : ",100)_resPast("last4Week"),!
+                Write $J("Previous Week   : ",100)_resPast("lastWeek"),!
+                Write $J("Previous Year's Same week   : ",100)_resPast("lastYear"),!
             }           
         }
 }
