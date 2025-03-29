@@ -84,19 +84,22 @@ IRIS for Windows (x86-64) 2024.1.3 (Build 456U)  Thu Jan 9 2025 12:47:03 EST
 ```objectscript
 Do ##class(SQLClass.PaxUtil).DataSetup()
 ```
-This method generates 1 million testing records spanning a total duration of 4 years and 4 months, starting from January 1, 2021, at 00:00:00 and continuing until April 30, 2025, at 23:59:59.
+This method generates 1 million testing records spanning a total duration of 4 years and 4 months, starting from January 1, 2021, at 00:00:00 and continuing until March 31, 2025, at 23:59:59.
 
 **Sample Execution Output:** Upon running the command, the system will execute the data setup process for the following logs:
 ```bash
-    USER>Do ##class(SQLClass.PaxUtil).DataSetup()
-    Data setup - Containers History of 6 Ports from different locations (Logistics):
-            Data Clean up : Done
-            Loaded Set 1 : 500000
-            Loaded Set 2 : 500000
-    Data setup - Transactions history of 6 ATMs from different locations (Banking):
-            Data Clean up : Done
-            Loaded Set 1 : 500000
-            Loaded Set 2 : 500000
+      USER>Do ##class(SQLClass.PaxUtil).DataSetup()
+      Data setup - Containers History of 6 Ports from different locations (Logistics):
+              Data Clean up : Done
+              Loaded DataSet 1 : 500000 - Records Populated
+              Loaded DataSet 2 : 500000 - Records Populated
+              Outlier Data Injected for WeekNo 13 - 2025
+      
+      Data setup - Transactions history of 6 ATMs from different locations (Banking):
+              Data Clean up : Done
+              Loaded DataSet 1 : 500000 - Records Populated
+              Loaded DataSet 2 : 500000 - Records Populated
+              Outlier Data Injected for WeekNo 13 - 2025
 ```
 ---
 ## Anomaly Detection Methodology
