@@ -54,6 +54,7 @@ ClassMethod DataSetupForContainersLog(ByRef State)
                 &SQL(update SQLClass.PaxContainersHistory set Units=:Units where ID=:rs.GetData(1))  
             }
         }
+        Write $C(9)_"Outlier Data Injected for WeekNo 13 - 2025",!!
     }
     Catch e {
         Write $classname()_":"_e.DisplayString(),!
@@ -82,6 +83,7 @@ ClassMethod DataSetupForTransactionLog(ByRef State)
                 &SQL(update SQLClass.PaxTransHistory set TransAmount=:Amount where ID=:rs.GetData(1))    
             }
         }
+        Write $C(9)_"Outlier Data Injected for WeekNo 13 - 2025",!!
     }
     Catch e {
         Write $classname()_":"_e.DisplayString(),!
