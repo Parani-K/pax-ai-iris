@@ -1,15 +1,19 @@
 Class SQLClass.PaxUtil Extends %RegisteredObject
 {
 
-ClassMethod DataSetup()
+ClassMethod DataSetup(Flag As %Integer = 3)
 {
     //Do ##class(SQLClass.PaxUtil).DataSetup()
     Do ..configureLocations(.State)
 
-    Write "Data setup - Containers History of 6 Ports from different locations (Logistics): ",!
-    Do ..DataSetupForContainersLog(.State)
-    Write "Data setup - Transactions history of 6 ATMs from different locations (Banking): ",!
-    Do ..DataSetupForTransactionLog(.State)
+    If Flag'=1 {
+        Write "Data setup - Containers History of 6 Ports from different locations (Logistics): ",!
+        Do ..DataSetupForContainersLog(.State)
+    }
+    If Flag'=2 {
+        Write "Data setup - Transactions history of 6 ATMs from different locations (Banking): ",!
+        Do ..DataSetupForTransactionLog(.State)
+    }
 }
 
 ClassMethod configureData(ByRef State As %String, ByRef YearWeekNo As %String, inpDate As %String)
@@ -32,38 +36,56 @@ ClassMethod configureLocations(ByRef State As %String)
 
 ClassMethod DataSetupForContainersLog(ByRef State)
 {
-    Write $C(9)_"Data Clean up : "
-    &SQL(DELETE FROM SQLClass.PaxContainersHistory) W "Done",!
-    Do ##class(SQLClass.PaxContainersHistory).Populate(500000)
-    Write $C(9)_"Loaded Set 1 : ",500000,!
-    Do ##class(SQLClass.PaxContainersHistory).Populate(500000)
-    Write $C(9)_"Loaded Set 2 : ",500000,!
-    &SQL(update SQLClass.PaxContainersHistory set country='INDIA')
+    Try {
+        Write $C(9)_"Data Clean up : "
+        K ^SQLClass.PaxContainersHistoryD,^SQLClass.PaxContainersHistoryI, ^SQLClass.PaxContainersHistoryS
+        W "Done",!
+        Write $C(9)_"Loaded DataSet 1 : ",##class(SQLClass.PaxContainersHistory).Populate(500000)," - Records Populated",!
+        Write $C(9)_"Loaded DataSet 2 : ",##class(SQLClass.PaxContainersHistory).Populate(500000)," - Records Populated",!
 
-    Set State=""
-    Set rs=..getSQLResultSet("select ID from SQLClass.PaxContainersHistory")
-    While(rs.Next()) {
-        S State = $o(State(State))
-        if State="" S State = $o(State(State))
-        &SQL(update SQLClass.PaxContainersHistory set LocationCode=:State where ID=:rs.GetData(1))
+        Set State=""
+        Set rs=..getSQLResultSet("select ID,YearWeekNo,Units from SQLClass.PaxContainersHistory")
+        While(rs.Next()) {
+            Set State = $o(State(State))
+            If State="" S State = $o(State(State))
+            &SQL(update SQLClass.PaxContainersHistory set LocationCode=:State,country='INDIA' where ID=:rs.GetData(1))
+            If rs.GetData(2)="2025-13"&($RANDOM(10)#2) {
+                Set Units=8000+$R(1000)
+                &SQL(update SQLClass.PaxContainersHistory set Units=:Units where ID=:rs.GetData(1))  
+            }
+        }
+    }
+    Catch e {
+        Write $classname()_":"_e.DisplayString(),!
+
     }
 }
 
 ClassMethod DataSetupForTransactionLog(ByRef State)
 {
-    Write $C(9)_"Data Clean up : "
-    &SQL(DELETE FROM SQLClass.PaxTransHistory) W "Done",!
-    Do ##class(SQLClass.PaxTransHistory).Populate(500000)
-    Write $C(9)_"Loaded Set 1 : ",500000,!
-    Do ##class(SQLClass.PaxTransHistory).Populate(500000)
-    Write $C(9)_"Loaded Set 2 : ",500000,!
+    Try {
+   
+        Write $C(9)_"Data Clean up : "
+        K ^SQLClass.PaxTransHistoryD,^SQLClass.PaxTransHistoryI,^SQLClass.PaxTransHistoryS
+        W "Done",!
+        Write $C(9)_"Loaded DataSet 1 : ",##class(SQLClass.PaxTransHistory).Populate(500000)," - Records Populated",!
+        Write $C(9)_"Loaded DataSet 2 : ",##class(SQLClass.PaxTransHistory).Populate(500000)," - Records Populated",!
 
-    Set State=""
-    Set rs=..getSQLResultSet("select ID from SQLClass.PaxTransHistory")
-    While(rs.Next()) {
-        Set State = $o(State(State))
-        If State="" S State = $o(State(State))
-        &SQL(update SQLClass.PaxTransHistory set State=:State where ID=:rs.GetData(1))
+        Set State=""
+        Set rs=..getSQLResultSet("select ID,YearWeekNo from SQLClass.PaxTransHistory")
+        While(rs.Next()) {
+            Set State = $o(State(State))
+            If State="" S State = $o(State(State))
+            &SQL(update SQLClass.PaxTransHistory set State=:State,country='INDIA' where ID=:rs.GetData(1))
+            If rs.GetData(2)["2025-13"&($RANDOM(10)#2) {
+                Set Amount=90000+$R(10000)
+                &SQL(update SQLClass.PaxTransHistory set TransAmount=:Amount where ID=:rs.GetData(1))    
+            }
+        }
+    }
+    Catch e {
+        Write $classname()_":"_e.DisplayString(),!
+
     }
 }
 
