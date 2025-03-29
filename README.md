@@ -132,11 +132,11 @@ This application is designed to identify anomaly activities in the following dom
    - Navigate to the namespace where the data population was performed.
    - Execute the following command:
      ``` objectscript
-     Do ##class(SQLClass.PaxTransHistory).anomalyDetection("2025-04-29")
+     Do ##class(SQLClass.PaxTransHistory).anomalyDetection("2025-03-25")
      ```
      
    - **Input Parameter**:
-     - `"2025-04-29"` specifies the week for anomaly detection.
+     - `"2025-03-25"` specifies the week for anomaly detection.
      - If no date is provided, the system defaults to the previous day's date and calculates the corresponding week number of the year.
    - Ensure the namespace matches the one used during test data setup.
 
@@ -147,20 +147,25 @@ This application is designed to identify anomaly activities in the following dom
 3. **Sample Execution Output:**
 
    ``` bash
-      USER>Do ##class(SQLClass.PaxTransHistory).anomalyDetection("2025-04-29")
-
-         ANOMALIES IDENTIFIED IN WEEKLY RUN ON WK#18 (2025)
-      --------------------------------------------------------------------------
-      Transfer at New Mangalore Port - Western Coast(Karnataka)(ATM-Code:NMP787780)  Amount : 6105050
-                                                                            This year's avg   : 12675816
-                                                                            Last 4 week's Avg : 13409927
-                                                                                  Last Week   : 12632454
-                                                                      Last Year's Same week   : 11755134
-           Transfer at Tuticorin Port - Eastern Coast(Tamil Nadu)(ATM-Code:TTP848480)  Amount : 5623260
-                                                                            This year's avg   : 12579823
-                                                                            Last 4 week's Avg : 13571370
-                                                                                  Last Week   : 13694189
-                                                                      Last Year's Same week   : 13678256
+         USER>Do ##class(SQLClass.PaxTransHistory).anomalyDetection("2025-03-25")
+         
+         ANOMALIES IDENTIFIED IN WEEKLY RUN ON WK#13 (2025)
+         ---------------------------------------------------
+                   Withdrawal at New Mangalore Port - Western Coast(Karnataka)(ATM-Code:NMP787780)  Amount : 20556730
+                                                                                         This year's avg   : 14348216
+                                                                                     Previous 4 week's Avg : 13683931
+                                                                                           Previous Week   : 13315884
+                                                                               Previous Year's Same week   : 13130318
+              Withdrawal at Visakhapatnam Port - Eastern Coast(Andhra Pradesh)(ATM-Code:VPP868080)  Amount : 19955652
+                                                                                         This year's avg   : 14369368
+                                                                                     Previous 4 week's Avg : 14553030
+                                                                                           Previous Week   : 13348459
+                                                                               Previous Year's Same week   : 14003942
+                           Transfer at Ennore Port - Eastern Coast(Tamil Nadu)(ATM-Code:ENP697880)  Amount : 21084254
+                                                                                         This year's avg   : 14023015
+                                                                                     Previous 4 week's Avg : 13283452
+                                                                                           Previous Week   : 12864380
+                                                                               Previous Year's Same week   : 13429192
     ```
 
 ### Logistics Domain
@@ -168,10 +173,10 @@ This application is designed to identify anomaly activities in the following dom
    - Navigate to the namespace where the data population was performed.
    - Execute the following command:
      ```objectscript
-     Do ##class(SQLClass.PaxContainersHistory).anomalyDetection("2025-04-29")
+     Do ##class(SQLClass.PaxContainersHistory).anomalyDetection("2025-03-25")
      ```
    - **Input Parameter**:
-     - `"2025-04-29"` specifies the date for anomaly detection.
+     - `"2025-03-25"` specifies the date for anomaly detection.
      - If no date is provided, the system defaults to the previous day's date and calculates the corresponding week number of the year.
    - Ensure the namespace corresponds to the one used during test data setup.
 
@@ -181,31 +186,66 @@ This application is designed to identify anomaly activities in the following dom
 
 3. **Sample Execution Output:**
    ``` bash
-
-        USER>Do ##class(SQLClass.PaxContainersHistory).anomalyDetection("2025-04-29")
-        
-        ANOMALIES IDENTIFIED IN WEEKLY RUN ON WEEK#18 (2025)
-        ----------------------------------------------------------
-                                     Container Gate-Out at Cochin Port -Western Coast(Kerala)(CNP)  Units : 741827
-                                                                                        This year's avg   : 18871066
-                                                                                        Last 4 week's Avg : 19612702
-                                                                                              Last Week   : 18846922
-                                                                                  Last Year's Same week   : 19021791
-                                Container Gate-Out at Ennore Port - Eastern Coast(Tamil Nadu)(ENP)  Units : 570086
-                                                                                        This year's avg   : 17427155
-                                                                                        Last 4 week's Avg : 18397192
-                                                                                              Last Week   : 17688474
-                                                                                  Last Year's Same week   : 17719102
-                          Container Gate-Out at New Mangalore Port - Western Coast(Karnataka)(NMP)  Units : 504961
-                                                                                        This year's avg   : 11087579
-                                                                                        Last 4 week's Avg : 11721552
-                                                                                              Last Week   : 10788240
-                                                                                  Last Year's Same week   : 11566993
-                      Container Gate-In at Visakhapatnam Port - Eastern Coast(Andhra Pradesh)(VPP)  Units : 141742
-                                                                                        This year's avg   : 4065380
-                                                                                        Last 4 week's Avg : 4341170
-                                                                                              Last Week   : 4657930
-                                                                                  Last Year's Same week   : 4630211
+         USER>Do ##class(SQLClass.PaxContainersHistory).anomalyDetection("2025-03-25")
+         
+         
+         ANOMALIES IDENTIFIED IN WEEKLY RUN ON WEEK#13 (2025)
+         ----------------------------------------------------------
+                                Container Gate-Out at Chennai Port - Eastern Coast(Tamil Nadu)(CHP)  Units : 3036621
+                                                                                         This year's avg   : 1969605
+                                                                                     Previous 4 week's Avg : 1946684
+                                                                                           Previous Week   : 1897887
+                                                                               Previous Year's Same week   : 1836667
+                                      Container Gate-Out at Cochin Port -Western Coast(Kerala)(CNP)  Units : 3209278
+                                                                                         This year's avg   : 1926549
+                                                                                     Previous 4 week's Avg : 1892441
+                                                                                           Previous Week   : 1936414
+                                                                               Previous Year's Same week   : 1744798
+                                 Container Gate-Out at Ennore Port - Eastern Coast(Tamil Nadu)(ENP)  Units : 3037720
+                                                                                         This year's avg   : 1923845
+                                                                                     Previous 4 week's Avg : 1901025
+                                                                                           Previous Week   : 1992539
+                                                                               Previous Year's Same week   : 1854914
+                           Container Gate-Out at New Mangalore Port - Western Coast(Karnataka)(NMP)  Units : 3139142
+                                                                                         This year's avg   : 1961736
+                                                                                     Previous 4 week's Avg : 1907479
+                                                                                           Previous Week   : 1975264
+                                                                               Previous Year's Same week   : 1853297
+                              Container Gate-Out at Tuticorin Port - Eastern Coast(Tamil Nadu)(TTP)  Units : 3328492
+                                                                                         This year's avg   : 1951659
+                                                                                     Previous 4 week's Avg : 1835133
+                                                                                           Previous Week   : 1883748
+                                                                               Previous Year's Same week   : 1902192
+                      Container Gate-Out at Visakhapatnam Port - Eastern Coast(Andhra Pradesh)(VPP)  Units : 3446854
+                                                                                         This year's avg   : 1989926
+                                                                                     Previous 4 week's Avg : 1884473
+                                                                                           Previous Week   : 1827341
+                                                                               Previous Year's Same week   : 1840329
+                                 Container Gate-In at Chennai Port - Eastern Coast(Tamil Nadu)(CHP)  Units : 3131779
+                                                                                         This year's avg   : 2007539
+                                                                                     Previous 4 week's Avg : 1933595
+                                                                                           Previous Week   : 1964282
+                                                                               Previous Year's Same week   : 2107174
+                                  Container Gate-In at Ennore Port - Eastern Coast(Tamil Nadu)(ENP)  Units : 3148797
+                                                                                         This year's avg   : 1999663
+                                                                                     Previous 4 week's Avg : 1867842
+                                                                                           Previous Week   : 1886003
+                                                                               Previous Year's Same week   : 2023913
+                            Container Gate-In at New Mangalore Port - Western Coast(Karnataka)(NMP)  Units : 3363762
+                                                                                         This year's avg   : 1941400
+                                                                                     Previous 4 week's Avg : 1862354
+                                                                                           Previous Week   : 2004584
+                                                                               Previous Year's Same week   : 1991292
+                               Container Gate-In at Tuticorin Port - Eastern Coast(Tamil Nadu)(TTP)  Units : 2960126
+                                                                                         This year's avg   : 1947936
+                                                                                     Previous 4 week's Avg : 1918125
+                                                                                           Previous Week   : 1950421
+                                                                               Previous Year's Same week   : 2003365
+                       Container Gate-In at Visakhapatnam Port - Eastern Coast(Andhra Pradesh)(VPP)  Units : 3221396
+                                                                                         This year's avg   : 1961220
+                                                                                     Previous 4 week's Avg : 1915614
+                                                                                           Previous Week   : 1852360
+                                                                               Previous Year's Same week   : 1685215
     ```
 
 ## Summary of the Workflow
