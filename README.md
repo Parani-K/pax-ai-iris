@@ -89,13 +89,13 @@ This method generates 1 million testing records spanning a total duration of 4 y
 **Sample Execution Output:** Upon running the command, the system will execute the data setup process for the following logs:
 ```bash
       USER>Do ##class(SQLClass.PaxUtil).DataSetup()
-      Data setup - Containers History of 6 Ports from different locations (Logistics):
+      Data setup - Containers History of 6 Ports from different locations (Logistics/Shipping):
               Data Clean up : Done
               Loaded DataSet 1 : 500000 - Records Populated
               Loaded DataSet 2 : 500000 - Records Populated
               Outlier Data Injected for WeekNo 13 - 2025
       
-      Data setup - Transactions history of 6 ATMs from different locations (Banking):
+      Data setup - Transactions history of 6 ATMs from different locations (Banking/Finantial):
               Data Clean up : Done
               Loaded DataSet 1 : 500000 - Records Populated
               Loaded DataSet 2 : 500000 - Records Populated
@@ -111,6 +111,7 @@ This method generates 1 million testing records spanning a total duration of 4 y
 ### Workflow:
 - Algorithms executed sequentially to comparative Study of KNN, LOF, and Isolation Forest:
   **KNN → IFOREST → LOF**
+- This code operates in a hybrid manner, where it integrates multiple algorithms to generate results. Specifically, the execution process combines K-Nearest Neighbors (KNN), Local Outlier Factor (LOF), and Isolation Forest (IForest) methodologies. By leveraging the strengths of these algorithms, the model/utility ensures a comprehensive analysis and delivers results based on their combined execution.
 - Trained on the same dataset for consistency.
 - Validates data based on week number and year derived from input dates -or- date of day back in case no input date.
   
@@ -123,7 +124,7 @@ This method generates 1 million testing records spanning a total duration of 4 y
 ## Purpose of the below sample runs
 This application is designed to identify anomaly activities in the following domains:
 1. **Banking**: Detecting suspicious or irregular transaction patterns within the Banking dataset.
-2. **Logistics**: Identifying anomalies in container gate-in (CGI) and container gate-out (CGO) operations across specific port locations.
+2. **Logistics/Shipping**: Identifying anomalies in cargo tracking like gate-in (CGI) and gate-out (CGO) operations across specific port locations.
 
 
 ## Instructions
@@ -171,7 +172,7 @@ This application is designed to identify anomaly activities in the following dom
                                                                                Previous Year's Same week   : 13429192
     ```
 
-### Logistics Domain
+### Logistics/Shipping Domain
 1. **Command Execution**:
    - Navigate to the namespace where the data population was performed.
    - Execute the following command:
@@ -184,7 +185,7 @@ This application is designed to identify anomaly activities in the following dom
    - Ensure the namespace corresponds to the one used during test data setup.
 
 2. **Output and Variability**:
-   - The command analyzes the dataset and identifies anomalies related to container gate-in (CGI) and container gate-out (CGO) activities across different port locations.
+   - The command analyzes the dataset and identifies anomalies related to cargo tracking gate-in (CGI) and gate-out (CGO) activities across different port locations.
    - Results are displayed in a predefined format and may vary for the same input date due to the randomness introduced during the data generation phase.
 
 3. **Sample Execution Output:**
@@ -254,13 +255,13 @@ This application is designed to identify anomaly activities in the following dom
 ## Summary of the Workflow
 
 1. Data is first generated using InterSystems IRIS’s `%POPULATE` class.
-2. Anomaly detection is executed for both Banking and Logistics domains using specific commands.
+2. Anomaly detection is executed for both Banking/Financial and Logistics/Shipping domains using specific commands.
 3. Results are validated based on the week number and year derived from the input date.
 4. Detected anomalies provide actionable insights for addressing irregularities in both domains.
 
 ## Key Notes
 - The randomness introduced during test data generation using means results may vary for the same input parameters.
-- These methods provide valuable insights, enhancing anomaly detection accuracy and operational efficiency in both Banking and Logistics domains.
+- These methods provide valuable insights, enhancing anomaly detection accuracy and operational efficiency in both Banking/Financial and Logistics/Shipping domains.
 
 ## References 
 1.	[Introduction to Embedded Python | InterSystems IRIS Data Platform 2025.1](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=AFL_epython).
